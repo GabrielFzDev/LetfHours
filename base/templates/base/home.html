@@ -1,23 +1,116 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<!-- Form pra colocar novas atividades -->
-<div>
-    <form method="POST" action="">
-        
-    </form>
-</div>
-<!-- Div para mostrar as atividades -->
-<div>
-    <div class="headerActivity"></div>
-    {% for act in activity %}
-        <div class="bodyActivity">
-            <h3>{{act.initialDate}}</h3>
-            <p><small>{{act.idproject}}</small>   @<small>{{act.user}}</small></p>
-            <label>Category: {{act.categoryAction}}  |</label>
-            <label> Action: {{act.action}}  |</label><br>
-            <label>Description:<br>{{act.description}}</label>
+
+<!-- Div para separação dos contents -->
+<div class="container">
+    <!-- Form pra colocar novas atividades -->
+    <div class="row">
+        {% if acts == None%}
+        <div class="col">
+            <div class="container">
+                <div class="row mb-5 bg-body-tertiary">
+                    <form action="{%url 'home' %}">
+                        <label class="form-label" for="">Categoria</label>
+                        <select class="form-select" name="queryC">
+                            {% for cat in category %}
+                                <option value="{{cat.id}}">{{cat}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label class="form-label" for="">Projeto</label>
+                        <select class="form-select mb-3" name="queryP">
+                            {% for proj in projects %}
+                                <option value="{{proj}}">{{proj}}</option>
+                            {% endfor %}
+                        </select>
+                        <input class="form-control" type="submit" value="Confirm">
+                    </form>
+                </div>
+                <div class="row">
+                    <form>
+                        <label class="form-label" for=""> Ação</label>
+                        <select class="form-select mb-3" disabled name="queryP">
+                            <option> Escolha opção</option>
+                            
+                        </select>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Data</span>
+                            <input disabled class="form-control"type="date">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Horas</span>
+                            <input disabled class="form-control" type="number">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Descrição</span>
+                            <textarea disabled class="form-control"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-    {% endfor %}
+        {%else%}
+        <div class="col">
+            <div class="container">
+                <div class="row mb-5 bg-body-tertiary">
+                    <form action="{%url 'home' %}">
+                        <label class="form-label" for="">Categoria</label>
+                        <select disabled class="form-select" name="queryC">
+                            {% for cat in category %}
+                                <option value="{{cat.id}}">{{cat}}</option>
+                            {% endfor %}
+                        </select>
+
+                        <label class="form-label" for="">Projeto</label>
+                        <select disabled class="form-select mb-3" name="queryP">
+                            {% for proj in projects %}
+                                <option value="{{proj}}">{{proj}}</option>
+                            {% endfor %}
+                        </select>
+                        <input disabled class="form-control" type="submit" value="Confirm">
+                    </form>
+                </div>
+                <div class="row">
+                    <form>
+                        <label class="form-label" for=""> Ação</label>
+                        <select class="form-select mb-3" name="queryP">
+                            <option> Escolha opção</option>
+                            {% for act in acts %}
+                                <option value="{{act}}">{{act}}</option>
+                            {% endfor %}
+                        </select>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Data</span>
+                            <input class="form-control"type="date">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Horas</span>
+                            <input class="form-control" type="number">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Descrição</span>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Div para mostrar as atividades -->
+        <div class="col">
+            <div class="headerActivity"></div>
+            {% for act in activity %}
+                <div class="bodyActivity">
+                    <h3>{{act.initialDate}}</h3>
+                    <p><small>{{act.idproject}}</small>   @<small>{{act.user}}</small></p>
+                    <label>Category: {{act.categoryAction}}  |</label>
+                    <label> Action: {{act.action}}  |</label><br>
+                    <label>Description:<br>{{act.description}}</label>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock content %}
 </div>
-{% endblock content %}
