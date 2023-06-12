@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<!-- Form pra colocar novas atividades -->
+<div>
+    <form method="POST" action="">
+        
+    </form>
+</div>
+<!-- Div para mostrar as atividades -->
+<div>
+    <div class="headerActivity"></div>
+    {% for act in activity %}
+        <div class="bodyActivity">
+            <h3>{{act.initialDate}}</h3>
+            <p><small>{{act.idproject}}</small>   @<small>{{act.user}}</small></p>
+            <label>Category: {{act.categoryAction}}  |</label>
+            <label> Action: {{act.action}}  |</label><br>
+            <label>Description:<br>{{act.description}}</label>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}
